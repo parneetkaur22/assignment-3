@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Assignment1.Tests.Controllers
 {
-    
+
     [TestClass]
     public class Table1ControllerTest
     {
@@ -76,9 +76,9 @@ namespace Assignment1.Tests.Controllers
 
 
             //act - valid id's: 1/2/3
-            
+
             var actual = (Table1)((ViewResult)controller.Details(1)).Model;
-            
+
 
             // assert
             Assert.AreEqual(Table[0], actual);
@@ -113,6 +113,21 @@ namespace Assignment1.Tests.Controllers
             // assert
             Assert.AreEqual("Error", actual.ViewName);
         }
+
+        // GET: Edit
+        [TestMethod]
+
+        public void EditGetValidId()
+        {
+
+            // act
+            var actual = ((ViewResult)controller.Edit(1)).Model;
+
+            //assert
+            Assert.AreEqual(Table[0], actual);
+
+
+}
 
     }
 }
