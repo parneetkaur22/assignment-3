@@ -128,6 +128,185 @@ namespace Assignment1.Tests.Controllers
 
 
 }
+        [TestMethod]
+
+        public void EditGetInvalidId()
+        {
+
+            // act
+            var actual = (ViewResult)controller.Edit(4);
+
+            //assert
+            Assert.AreEqual("Error", actual.ViewName);
+
+
+        }
+
+        [TestMethod]
+
+        public void EditGetNoId()
+        {
+            int? id = null;
+
+            // act
+            var actual = (ViewResult)controller.Edit(id);
+
+            //assert
+            Assert.AreEqual("Error", actual.ViewName);
+
+
+        }
+
+        // POSt: Edit
+        [TestMethod]
+
+        public void EditPostValid()
+        {
+
+            // act
+            var actual = (RedirectToRouteResult)controller.Edit(Table[0]);
+
+            //assert
+            Assert.AreEqual("Index", actual.RouteValues["action"]);
+
+
+        }
+
+      
+        [TestMethod]
+
+        public void EditPostInvalid()
+        {
+            // arrange - manually set model state to invalid
+            controller.ModelState.AddModelError("Key", "update error");
+
+            // act
+            var actual = (ViewResult)controller.Edit(Table[0]);
+
+            //assert
+            Assert.AreEqual("Edit", actual.ViewName);
+
+
+        }
+
+        // create
+        [TestMethod]
+
+        public void CreateViewLoads()
+        {
+
+            // act
+            var actual = (ViewResult)controller.Create();
+
+            //assert
+            Assert.AreEqual("Create", actual.ViewName);
+
+
+        }
+
+        [TestMethod]
+
+        public void CreateValid()
+        {
+
+            // arrange
+            Table1 b = new Table1
+            {
+
+                Name = "New table"
+
+
+            };
+
+            // act
+            var actual = (RedirectToRouteResult)controller.Create(b);
+
+            //assert
+            Assert.AreEqual("Index", actual.RouteValues["action"]);
+
+
+        }
+
+        [TestMethod]
+
+        public void CreateInvalid()
+        {
+            // arrange
+            Table1 b = new Table1
+            {
+
+                Name = "New table"
+
+
+            };
+
+            controller.ModelState.AddModelError("Key", "create error");
+
+            // act
+            var actual = (ViewResult)controller.Create();
+
+            //assert
+            Assert.AreEqual("Create", actual.ViewName);
+
+
+        }
+
+        // Delete
+        [TestMethod]
+
+        public void DeleteGetValidId()
+        {
+
+            // act
+            var actual = ((ViewResult)controller.Delete(1)).Model;
+
+            //assert
+            Assert.AreEqual(Table[0], actual);
+
+
+        }
+
+        [TestMethod]
+
+        public void DeleteGetInValidId()
+        {
+
+            // act
+            var actual = (ViewResult)controller.Delete(4);
+
+            //assert
+            Assert.AreEqual("Error", actual.ViewName);
+
+
+        }
+
+        [TestMethod]
+
+        public void DeleteGetNoId()
+        {
+
+            // act
+            var actual = (ViewResult)controller.Delete(null);
+
+            //assert
+            Assert.AreEqual("Error", actual.ViewName);
+
+
+        }
+
+        [TestMethod]
+
+        public void DeletePostValid()
+        {
+
+            // act
+            var actual = (RedirectToRouteResult)controller.DeleteConfirmed(1);
+
+            //assert
+            Assert.AreEqual("Index", actual.RouteValues["action"]);
+
+
+        }
 
     }
 }
